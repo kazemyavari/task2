@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&$j$*zyv8t7*5q4e&qqomx6rv3kgh*yx8dnm@$edwth@7&pr81"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -145,5 +149,5 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-WEATHER_KEY = ""
+WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 WEATHER_EXPIR_TIME = 60 * 60 * 2  # hour

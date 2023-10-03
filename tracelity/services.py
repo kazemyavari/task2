@@ -7,7 +7,7 @@ import re
 
 
 def _get_weather_from_API(city: str, country: str, zip_code: int) -> Dict:
-    owm = OWM(settings.WEATHER_KEY)
+    owm = OWM(settings.WEATHER_API_KEY)
     mgr = owm.weather_manager()
     observation = mgr.weather_at_place(f"{city},{country}")
     observation = mgr.weather_at_zip_code(zip_code, observation.location.country)
