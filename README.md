@@ -6,6 +6,7 @@ This is an API that serves shipment data and provides users with current weather
 -   [Installation](#installation)
 -   [Usage](#usage)
 -   [Test](#test)
+-   [Discussion Points](https://github.com/kazemyavari/task2/blob/main/discussion_points.md)
 
 ## Installation
 1. Clone repository:
