@@ -9,6 +9,20 @@ class ShipmentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def to_representation(self, instance):
+        """
+        Convert the Shipment model instance to a serialized representation.
+
+        Args:
+            instance: The Shipment model instance to be serialized.
+
+        Returns:
+            dict: The serialized representation of the Shipment instance.
+            
+        Explanation:
+            This method overrides the parent class method to include additional information
+            about the weather for both sender and receiver addresses. The 'weather' field is
+            populated using the 'get_weather' function from the 'weather_service' module.
+        """
         representation = super().to_representation(instance)
 
         representation["sender_address"] = {
