@@ -1,0 +1,27 @@
+services:
+  db:
+    container_name: task2_db
+    image: postgres:15.3
+    restart: always
+    volumes:
+      - task2_db:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+  api:
+    container_name: task2_backend
+    build: .
+    command: sh -c "./start.sh"
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - db
+
+volumes:
+  task2_db:
+    name: task2_db
