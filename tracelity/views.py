@@ -6,11 +6,13 @@ from .serializers import ShipmentSerializer
 
 
 class ShipmentLookupView(APIView):
+    serializer_class = ShipmentSerializer
+
     def get(self, request, tracking_number, carrier):
         shipments = Shipment.objects.filter(
             tracking_number=tracking_number, carrier=carrier
         )
-        serializer = ShipmentSerializer(shipments, many=True)
+        serializer = self.serializer_class(shipments, many=True)
 
         if shipments.exists():
             return Response(serializer.data)
