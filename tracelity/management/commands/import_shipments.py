@@ -1,7 +1,7 @@
 import csv
 from django.core.management.base import BaseCommand
 from tracelity.models import Shipment
-
+from tracelity.tasks import fetch_weather
 
 class Command(BaseCommand):
     """Import shipments from a CSV file.
@@ -39,5 +39,5 @@ class Command(BaseCommand):
             reader = csv.DictReader(file)
             for row in reader:
                 Shipment.objects.create(**row)
-
+        fetch_weather.apply_async()
         self.stdout.write(self.style.SUCCESS("Data imported successfully"))

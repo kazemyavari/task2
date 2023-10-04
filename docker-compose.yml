@@ -34,6 +34,7 @@ services:
     command: celery -A config worker -l info
     depends_on:
       - web
+      - redis
     links:
       - web
     env_file:
@@ -44,6 +45,8 @@ services:
     command: celery -A config beat -l info
     depends_on:
       - web
+      - redis
+      - celery-worker
     links:
       - web
     env_file:
