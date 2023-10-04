@@ -9,7 +9,7 @@ class Shipment(models.Model):
     article_name = models.CharField(max_length=50)
     article_quantity = models.IntegerField()
     article_price = models.DecimalField(max_digits=10, decimal_places=2)
-    SKU = models.CharField(max_length=20)
+    sku = models.CharField(max_length=20)
     status = models.CharField(max_length=20)
 
     def __str__(self):

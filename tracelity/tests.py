@@ -35,7 +35,7 @@ class ShipmentLookupViewTest(TestCase):
             article_name="Laptop",
             article_quantity=2,
             article_price=1000,
-            SKU="LT123",
+            sku="LT123",
             status="pending",
         )
 

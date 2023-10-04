@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
 
 load_dotenv()
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_spectacular",
+    "django_celery_results",
     "tracelity",
 ]
 
@@ -136,8 +138,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "unique-snowflake",
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv("REDIS_CACHES_LOCATION", "redis://127.0.0.1:6379/1"),
     }
 }
 
@@ -155,3 +157,16 @@ SPECTACULAR_SETTINGS = {
 
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 WEATHER_EXPIR_TIME = 60 * 60 * 2  # hour
+
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://127.0.0.1:6379/0")
+
+
+# Schedule the task to run every 2 hours for fetch weather into the cache
+CELERY_BEAT_SCHEDULE = {
+    "fetch-and-save-weather": {
+        "task": "tracelity.tasks.fetch_weather",
+        "schedule": timedelta(hours=2),
+    },
+}
